@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neju | Netflix‑Style Portfolio</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+
+  <style>
+    :root {
+      --netflix-red: #e50914;
+      --bg-dark: #141414;
+      --bg-card: #1f1f1f;
+      --text-muted: #b3b3b3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-dark);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    header {
+      position: fixed;
+      top: 0; width: 100%; height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 50px;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+    }
+
+    .logo {
+      color: var(--netflix-red);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      margin-left: 28px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -5px;
+      width: 0%; height: 2px;
+      background: var(--netflix-red);
+      transition: 0.3s;
+    }
+
+    nav a:hover::after { width: 100%; }
+
+    /* HERO */
+    .hero {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 70px;
+  background: url('portfolio3.png') center right / cover no-repeat;
+  overflow: hidden;
+}
+
+/* Gradient overlay */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(20,20,20,0.95) 0%,
+    rgba(20,20,20,0.85) 35%,
+    rgba(20,20,20,0.4) 60%,
+    rgba(20,20,20,0.1) 80%,
+    rgba(20,20,20,0) 100%
+  );
+  z-index: 1;
+}
+
+/* Keep text above overlay */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+
+    .hero-content { max-width: 700px; }
+
+    .hero h1 {
+      font-size: 60px;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      padding: 14px 34px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      margin-right: 18px;
+      transition: transform 0.45s;
+    }
+
+    .btn.primary {
+      background: var(--netflix-red);
+      color: #fff;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    .btn:hover {
+      transform: scale(1.2);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 60px;
+    }
+
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+
+    section p {
+      max-width: 800px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* PROJECT ROW */
+    .row {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      padding: 20px 0 30px;
+      scroll-behavior: smooth;
+    }
+
+    .row::-webkit-scrollbar { height: 6px; }
+    .row::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 10px;
+    }
+
+    .card {
+  min-width: 280px;
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 22px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: linear-gradient(120deg, transparent, rgba(229,9,20,0.25));
+      opacity: 0;
+      transition: 0.35s;
+    }
+
+    .card:hover::after { opacity: 1; }
+
+    .card:hover {
+      transform: scale(1.1);
+      z-index: 10;
+    }
+
+    .card h3 { margin-bottom: 10px; }
+    .row {
+  overflow: visible; 
+}
+
+
+    .card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-height: 40px;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.card:hover p {
+  max-height: 200px; /* reveals full description */
+}
+
+
+    /* SKILLS */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .skills span {
+      padding: 8px 16px;
+      background: #2a2a2a;
+      border-radius: 50px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .skills span:hover {
+      background: var(--netflix-red);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px;
+      font-size: 14px;
+      color: #777;
+      background: #0f0f0f;
+    }
+
+    /* EDUCATION */
+.education {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.edu-card {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 25px;
+  position: relative;
+}
+
+.edu-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--netflix-red);
+  border-radius: 10px 0 0 10px;
+}
+
+.edu-card h3 {
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+.edu-card h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.edu-meta {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+    /* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+  header {
+    padding: 0 30px;
+  }
+
+  .hero {
+    padding: 0 40px;
+    background-position: center;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+  }
+
+  section {
+    padding: 80px 40px;
+  }
+
+  .card:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  header {
+    padding: 0 20px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 0 25px;
+    text-align: left;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  /* Sections */
+  section {
+    padding: 70px 25px;
+  }
+
+  section h2 {
+    font-size: 26px;
+  }
+
+  /* Project cards */
+  .row {
+    gap: 18px;
+  }
+
+  .card {
+    min-width: 240px;
+    height: auto;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  /* Education */
+  .education {
+    grid-template-columns: 1fr;
+  }
+
+  /* Skills */
+  .skills {
+    gap: 10px;
+  }
+
+  footer {
+    padding: 30px 20px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+}
+
+/* CERTIFICATIONS */
+.certifications {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.cert-card {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 22px;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.cert-card::before {
+  content: "✓";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 18px;
+  color: var(--netflix-red);
+}
+
+.cert-card:hover {
+  transform: translateY(-6px);
+}
+
+.cert-card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.cert-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* CONTACT ICONS */
+.contact-icons {
+  display: flex;
+  gap: 30px;
+  margin-top: 25px;
+  align-items: center;
+}
+
+.contact-icons a {
+  color: #fff;
+  font-size: 28px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.contact-icons a:hover {
+  color: var(--netflix-red);
+  transform: translateY(-6px);
+}
+
+/* CONTACT SECTION */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-top: 35px;
+}
+
+.contact-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.contact-card i {
+  font-size: 34px;
+  color: var(--netflix-red);
+  margin-bottom: 14px;
+}
+
+.contact-card h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.contact-card a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.contact-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(229, 9, 20, 0.35);
+}
+.btn {
+  display: inline-block;
+  text-decoration: none;
+}
+
+
+
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">NEERAJ VS</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" title="Personal portfolio hero section">
+  <div class="hero-content">
+    <h1>Build. Scale. Delight.</h1>
+    <p>Designing and developing intelligent systems and scalable software solutions.</p>
+    <a href="#projects" class="btn primary">View Projects</a>
+    <a href="Neeraj_Resume.pdf" target="_blank" class="btn primary">
+  View Resume
+</a>
+    <button class="btn secondary">Download Resume</button>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>
+   A passionate and driven technology graduate seeking an entry-level role to apply skills in AI,
+Data Science, and IoT, contribute to innovative solutions, and grow alongside a forward-thinking
+team.
+  </p>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+
+  <div class="education">
+
+    <div class="edu-card">
+      <h3>Master of Computer Applications (AI & Data Science)</h3>
+      <h4>Amrita Vishwa Vidyapeetham · School of Computing, Kochi</h4>
+      <div class="edu-meta">
+        2025 – 2027 (Pursuing)<br>
+        CGPA: 8.92 
+      </div>
+    </div>
+
+    <div class="edu-card">
+      <h3>Bachelor of Computer Applications (Data Science)</h3>
+      <h4>Amrita Vishwa Vidyapeetham · School of Computing, Kochi</h4>
+      <div class="edu-meta">
+        2022 – 2025<br>
+        CGPA: 8.24
+      </div>
+    </div>
+
+    <div class="edu-card">
+      <h3>Higher Secondary Education</h3>
+      <h4>Dr. N. International School</h4>
+      <div class="edu-meta">
+        2022<br>
+        Aggregate: 79.4%
+      </div>
+    </div>
+
+    <div class="edu-card">
+      <h3>Secondary School Education</h3>
+      <h4>Dr. N. International School</h4>
+      <div class="edu-meta">
+        2020<br>
+        Aggregate: 72.8%
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="certifications">
+  <h2>Certifications</h2>
+
+  <div class="certifications">
+
+    <div class="cert-card">
+      <h3>Artificial Intelligence Foundations</h3>
+      <p>
+        Covered core AI concepts including machine learning fundamentals,
+        intelligent agents, and real-world AI applications.
+      </p>
+    </div>
+
+    <div class="cert-card">
+      <h3>Data Science & Analytics</h3>
+      <p>
+        Hands-on experience with data preprocessing, exploratory analysis,
+        and deriving insights using Python-based tools.
+      </p>
+    </div>
+
+    <div class="cert-card">
+      <h3>Internet of Things (IoT)</h3>
+      <p>
+        Learned IoT architecture, sensor integration, and real-time data
+        communication using embedded systems.
+      </p>
+    </div>
+
+    <div class="cert-card">
+      <h3>Flutter App Development</h3>
+      <p>
+        Built cross-platform mobile applications with Flutter,
+        focusing on UI design, state management, and Firebase integration.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="projects">
+  <h2>Featured Projects</h2>
+  <div class="row">
+    <div class="card" onclick="location.href='smart-specs.html'">
+  <h3>Smart Specs</h3>
+  <p>
+    AI assistant for visually impaired users which guides individuals
+    using voice assistant navigation (Left / Right).
+  </p>
+</div>
+
+    <div class="card"><h3>Smart Switch Board</h3><p>An Iot Device which automatically turn any traditional switchboard into a smart switchboard with ease.</p></div>
+</section>
+
+<section id="skills">
+  <h2>Skills & Tools</h2>
+  <div class="skills">
+    <span>Flutter</span><span>Python</span><span>Java</span><span>C</span>
+    <span>Firebase</span><span>AI / ML</span><span>IoT</span><span>SQL</span>
+    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+
+  <div class="contact-cards">
+
+    <div class="contact-card">
+      <i class="fas fa-envelope"></i>
+      <h3>Email</h3>
+      <a href="mailto:neerajvs99@gmail.com">neerajvs99@gmail.com</a>
+    </div>
+
+    <div class="contact-card">
+      <i class="fab fa-github"></i>
+      <h3>GitHub</h3>
+      <a href="https://github.com/yourusername" target="_blank">
+        github.com/yourusername
+      </a>
+    </div>
+
+    <div class="contact-card">
+      <i class="fab fa-linkedin"></i>
+      <h3>LinkedIn</h3>
+      <a href="https://linkedin.com/in/yourusername" target="_blank">
+        linkedin.com/in/yourusername
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+
+<footer>
+  © 2026 Neeraj vs · Resume related Portfolio
+</footer>
+
+</body>
+</html>
